@@ -1,36 +1,29 @@
-import 'package:everwrite/pages/new_notes.dart';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
-import 'package:everwrite/pages/home.dart';
+import 'routes/routes.dart';
+import 'ui/theme.dart';
 
-import 'package:google_fonts/google_fonts.dart';
-
-
-void main() {
-  runApp(const MyApp());
+void main() async {
+  runApp(Main(initialRoute: Routes.initialRoute));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class Main extends StatelessWidget {
+  final String initialRoute;
+  const Main({
+    Key? key,
+    required this.initialRoute,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
+      // debugShowCheckedModeBanner: false,
+      defaultTransition: Transition.cupertino,
       title: 'EverWrite',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color.fromARGB(255, 106, 62, 161),
-          onPrimary: const Color.fromARGB(255, 106, 62, 161),
-          brightness: Brightness.light,
-        ),
-        fontFamily: GoogleFonts.inter().fontFamily,
-        useMaterial3: true,
-      ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const HomePage(),
-        '/newnote': (context) => const NewNote(),
-      },
+      initialRoute: initialRoute,
+      getPages: Routes.routes,
+      theme: AppTheme.standard,
     );
   }
 }

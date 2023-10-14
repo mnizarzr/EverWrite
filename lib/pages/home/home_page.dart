@@ -1,11 +1,18 @@
+import 'package:everwrite/constants/common/route_constants.dart';
+import 'package:everwrite/ui/app_ui.dart';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+
+import 'package:everwrite/controllers/home/home_controller.dart';
+
 import 'package:heroicons/heroicons.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomePage extends GetView<HomeController> {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var myVariable = 'Start Your Journey';
     return Scaffold(
       body: Center(
         child: Column(
@@ -19,7 +26,7 @@ class HomePage extends StatelessWidget {
             Container(
               margin: const EdgeInsets.symmetric(vertical: 16),
               child: Text(
-                'Start Your Journey',
+                myVariable,
                 style: Theme.of(context)
                     .textTheme
                     .headlineMedium
@@ -51,9 +58,7 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/newnote');
-        },
+        onPressed: () => Get.toNamed(newNoteRoute),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
         child: Container(
           width: 60,
@@ -64,8 +69,8 @@ class HomePage extends StatelessWidget {
               begin: Alignment(0.0, -1.0),
               end: Alignment(0.0, 2.0),
               colors: [
-                Color.fromARGB(255, 106, 62, 161),
-                Color.fromARGB(255, 58, 34, 88),
+                AppColors.primary,
+                AppColors.secondary,
               ],
             ),
           ),
@@ -81,29 +86,30 @@ class HomePage extends StatelessWidget {
   }
 
   BottomAppBar buildBottomAppBar(BuildContext context) {
-    return BottomAppBar(
+    return const BottomAppBar(
+      surfaceTintColor: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         mainAxisSize: MainAxisSize.max,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 10.0),
+            padding: EdgeInsets.only(left: 10.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 HeroIcon(
                   HeroIcons.home,
-                  color: Theme.of(context).primaryColor,
+                  color: AppColors.primary,
                   style: HeroIconStyle.solid,
                 ),
                 Text(
                   'Home',
-                  style: TextStyle(color: Theme.of(context).primaryColor),
+                  style: TextStyle(color: AppColors.primary),
                 ),
               ],
             ),
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -113,7 +119,7 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -123,7 +129,7 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.only(right: 10.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,

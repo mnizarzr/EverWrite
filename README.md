@@ -1,6 +1,6 @@
 # everwrite
 
-A new Flutter project.
+EverWrite the note taking app
 
 ## Getting Started
 
