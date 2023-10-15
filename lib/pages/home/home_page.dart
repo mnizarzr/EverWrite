@@ -12,7 +12,6 @@ class HomePage extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    var myVariable = 'Start Your Journey';
     return Scaffold(
       body: Center(
         child: Column(
@@ -26,7 +25,7 @@ class HomePage extends GetView<HomeController> {
             Container(
               margin: const EdgeInsets.symmetric(vertical: 16),
               child: Text(
-                myVariable,
+                'Start Your Journey',
                 style: Theme.of(context)
                     .textTheme
                     .headlineMedium

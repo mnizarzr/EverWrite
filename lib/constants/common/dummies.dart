@@ -1,5 +1,6 @@
 import 'package:everwrite/data/models/note_type.dart';
 import 'package:everwrite/ui/app_ui.dart';
+import 'package:flutter/material.dart';
 
 const List<NoteType> noteTypes = [
   NoteType(
@@ -31,5 +32,11 @@ const List<NoteType> noteTypes = [
     subtitle: 'Checklist with sub-checklist',
     icon: 'assets/icons/routine.png',
     colors: [AppColors.lemon, AppColors.darkLemon],
+  ),
+  NoteType(
+    title: 'Image',
+    subtitle: 'Remind what to-do with the image',
+    icon: 'assets/icons/image.png',
+    colors: [Colors.cyanAccent, Colors.cyan],
   ),
 ];

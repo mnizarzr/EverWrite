@@ -9,6 +9,8 @@ class Routes {
   static const home = homeRoute;
   static const newNote = newNoteRoute;
 
+  static const noteEditor = noteEditorRoute;
+
   // place logic here for determining initial route
   // eg. static String get initialRoute => isAuthenticated ? home : login;
   static String get initialRoute => home;
@@ -23,6 +25,10 @@ class Routes {
     // basic page without any binding
     GetPage(
       name: Routes.newNote,
+      page: () => const NewNotePage(),
+    ),
+    GetPage(
+      name: Routes.noteEditor,
       page: () => const NewNotePage(),
     ),
   ];
