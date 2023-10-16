@@ -1,3 +1,4 @@
+import 'package:everwrite/pages/notes/create_note_page.dart';
 import 'package:get/get.dart';
 
 import 'bindings/bindings.dart';
@@ -29,7 +30,7 @@ class Routes {
     ),
     GetPage(
       name: Routes.noteEditor,
-      page: () => const NewNotePage(),
+      page: () => AddNotePage(),
     ),
   ];
 }
