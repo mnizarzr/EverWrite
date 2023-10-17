@@ -6,14 +6,9 @@ import 'package:everwrite/data/models/note.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
-class AddNotePage extends StatefulWidget {
-  const AddNotePage({super.key});
+class AddNotePage extends StatelessWidget {
+  AddNotePage({super.key});
 
-  @override
-  State<AddNotePage> createState() => _AddNotePageState();
-}
-
-class _AddNotePageState extends State<AddNotePage> {
   final controller = Get.put(NoteEditorController());
 
   void addNote() {
@@ -42,101 +37,150 @@ class _AddNotePageState extends State<AddNotePage> {
         centerTitle: true,
         elevation: 0,
       ),
-      body: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.only(
-              top: 40,
-              left: 20,
-              right: 20,
-            ),
-            child: Column(
-              children: [
-                const Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Add your task',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w900,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                InkWell(
-                  onTap: () => showModalBottomSheet(
-                    context: context,
-                    builder: (context) {
-                      return Row(
-                        children: [
-                          InkWell(
-                            child: const Icon(Icons.browse_gallery),
-                            onTap: () =>
-                                controller.pickImage(ImageSource.gallery),
-                          ),
-                          InkWell(
-                            child: const Icon(Icons.camera),
-                            onTap: () =>
-                                controller.pickImage(ImageSource.camera),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                  child: Container(
-                    margin: const EdgeInsets.all(20),
-                    width: 350,
-                    height: 250,
-                    child: DottedBorder(
-                      borderType: BorderType.RRect,
-                      radius: const Radius.circular(12),
-                      color: Colors.blueGrey,
-                      strokeWidth: 1,
-                      dashPattern: const [5, 5],
-                      child: SizedBox.expand(
-                        child: FittedBox(
-                          child: controller.selectedImagePath.value != ''
-                              ? Image.file(
-                                  File(controller.selectedImagePath.value),
-                                  fit: BoxFit.cover,
-                                )
-                              : const Icon(
-                                  Icons.image_outlined,
-                                  color: Colors.blueGrey,
-                                ),
-                        ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.only(
+                top: 40,
+                left: 20,
+                right: 20,
+              ),
+              child: Column(
+                children: [
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Add your task',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w900,
                       ),
                     ),
                   ),
-                ),
-                CustomTextFormField(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  borderRadius: BorderRadius.circular(25),
-                  controller: controller.titleController,
-                  height: 50.0,
-                  hintText: 'Title',
-                  nextFocus: controller.contentFocus,
-                ),
-                CustomTextFormField(
-                  padding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
-                  focus: controller.contentFocus,
-                  borderRadius: BorderRadius.circular(10),
-                  controller: controller.contentController,
-                  height: 100.0,
-                  hintText: 'What do you want to note?',
-                  maxLines: 10,
-                ),
-              ],
+                  const SizedBox(height: 10),
+                  GetBuilder<NoteEditorController>(
+                    builder: (logic) {
+                      return InkWell(
+                        onTap: () => showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return Row(
+                              children: [
+                                InkWell(
+                                  child: const SizedBox(
+                                    width: 50,
+                                    height: 50,
+                                    child: Icon(Icons.browse_gallery),
+                                  ),
+                                  onTap: () =>
+                                      logic.pickImage(ImageSource.gallery),
+                                ),
+                                InkWell(
+                                  child: const SizedBox(
+                                    width: 50,
+                                    height: 50,
+                                    child: Icon(Icons.camera),
+                                  ),
+                                  onTap: () =>
+                                      logic.pickImage(ImageSource.camera),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                        child: Container(
+                          margin: const EdgeInsets.all(20),
+                          width: 350,
+                          height: 250,
+                          child: DottedBorder(
+                            borderType: BorderType.RRect,
+                            radius: const Radius.circular(12),
+                            color: Colors.blueGrey,
+                            strokeWidth: 1,
+                            dashPattern: const [5, 5],
+                            child: SizedBox.expand(
+                              child: FittedBox(
+                                child: logic.selectedImagePath.value != ''
+                                    ? Image.file(
+                                        File(logic.selectedImagePath.value),
+                                        fit: BoxFit.cover,
+                                      )
+                                    : const Icon(
+                                        Icons.image_outlined,
+                                        color: Colors.blueGrey,
+                                      ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  CustomTextFormField(
+                    padding: const EdgeInsets.symmetric(horizontal: 25),
+                    borderRadius: BorderRadius.circular(25),
+                    controller: controller.titleController,
+                    height: 50.0,
+                    hintText: 'Title',
+                    nextFocus: controller.contentFocus,
+                  ),
+                  CustomTextFormField(
+                    padding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
+                    focus: controller.contentFocus,
+                    borderRadius: BorderRadius.circular(10),
+                    controller: controller.contentController,
+                    height: 100.0,
+                    hintText: 'What do you want to note?',
+                    maxLines: 10,
+                  ),
+                ],
+              ),
             ),
-          ),
-          const SizedBox(height: 10),
-          CustomButton(
-            title: 'Submit',
-            icon: Icons.done,
-            onPressed: addNote,
-          ),
-          const SizedBox(height: 10),
-        ],
+            const SizedBox(height: 10),
+            CustomButton(
+              title: 'Submit',
+              icon: Icons.done,
+              onPressed: addNote,
+            ),
+            const SizedBox(height: 10),
+            Obx(() => (controller.notes.isNotEmpty)
+                ? ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                    itemCount: controller.notes.length,
+                    itemBuilder: (context, index) {
+                      Note note = controller.notes[index];
+
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: Row(
+                          children: [
+                            note.imagePath != null
+                                ? Image.file(
+                                    File(note.imagePath!),
+                                    width: 100,
+                                    height: 100,
+                                  )
+                                : Container(
+                                    width: 100,
+                                    height: 100,
+                                    color: Colors.grey,
+                                  ),
+                            Column(
+                              children: [
+                                Text(note.title),
+                                Text(note.content),
+                              ],
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  )
+                : Divider())
+          ],
+        ),
       ),
     );
   }

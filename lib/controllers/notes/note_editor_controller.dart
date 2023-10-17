@@ -29,6 +29,7 @@ class NoteEditorController extends GetxController {
     final pickedFile = await ImagePicker().pickImage(source: imageSource);
     if (pickedFile != null) {
       selectedImagePath.value = pickedFile.path;
+      update();
     } else {
       Get.snackbar(
         'Canceled',
@@ -48,16 +49,16 @@ class NoteEditorController extends GetxController {
   }
 
   Future getNotes() async {
-    Box box;
+    Box? box;
     print('Getting notes');
     try {
-      box = Hive.box('db');
-    } catch (error) {
+      // box = Hive.box('db');
       box = await Hive.openBox('db');
+    } catch (error) {
       print(error);
     }
 
-    var tds = box.get('notes');
+    var tds = box?.get('notes');
     print('TODOS $tds');
     if (tds != null) notes.value = tds;
   }
