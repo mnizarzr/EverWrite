@@ -1,16 +1,13 @@
 import 'package:everwrite/constants/common/dummies.dart';
+import 'package:everwrite/constants/common/route_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../components/notes/note_type_card.dart';
 
-class NewNotePage extends StatefulWidget {
+class NewNotePage extends StatelessWidget {
   const NewNotePage({Key? key}) : super(key: key);
 
-  @override
-  State<NewNotePage> createState() => _NewNotePageState();
-}
-
-class _NewNotePageState extends State<NewNotePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,6 +44,8 @@ class _NewNotePageState extends State<NewNotePage> {
                   title: noteTypes[index].title,
                   subtitle: noteTypes[index].subtitle,
                   colors: noteTypes[index].colors,
+                  onTap:
+                      (index == 5) ? () => Get.toNamed(noteEditorRoute) : null,
                 ),
               ),
             ),

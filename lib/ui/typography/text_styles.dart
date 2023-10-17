@@ -1,12 +1,11 @@
 import 'package:everwrite/ui/colors.dart';
 import 'package:everwrite/ui/typography/typography.dart';
 import 'package:flutter/widgets.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 /// App Text Style Definitions
 class AppTextStyle {
-  static final TextStyle _baseTextStyle = TextStyle(
-    fontFamily: GoogleFonts.inter().fontFamily,
+  static const TextStyle _baseTextStyle = TextStyle(
+    fontFamily: 'Inter',
     color: AppColors.dark,
     fontWeight: AppFontWeight.regular,
   );
